@@ -1,8 +1,9 @@
 import scrapeIt from "scrape-it";
+import pptxgen from "pptxgenjs";
 
 
 // Promise interface
-scrapeIt("https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=960&wrkid=6948", {
+scrapeIt("https://shironet.mako.co.il/artist?type=chords&lang=1&prfid=960&wrkid=6948", {
     title: "h1.artist_song_name_txt", 
     artist: "a.artist_singer_title",
     words:{
@@ -19,4 +20,20 @@ scrapeIt("https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=960&wrkid=
 }).then(({ data, status }) => {
     console.log(`Status Code: ${status}`)
     console.log(data)
+
+   
+
+    // 1. Create a new Presentation
+    let pres = new pptxgen();
+
+    // 2. Add a Slide
+    let slide = pres.addSlide();
+
+    // 3. Add one or more objects (Tables, Shapes, Images, Text and Media) to the Slide
+    slide.addText(`${data['title']}`, { x: 1, y: 1, color: "363636" });
+
+    // 4. Save the Presentation
+    pres.writeFile({
+      fileName: "test.pptx",
+    });
 });
