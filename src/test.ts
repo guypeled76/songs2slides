@@ -63,10 +63,13 @@ let songs = Promise.all(
     console.log(`Adding ${song.title}`);
 
     // 2.1. Add a Slide
-    let slide = pres.addSlide();
+    let slide = pres.addSlide({sectionTitle: `${song.title}` });
 
     // 2.2. Add one or more objects (Tables, Shapes, Images, Text and Media) to the Slide
     slide.addText(`${song.title}`, { x: 1, y: 1, color: "363636" });
+
+    // 2.3. Add the song lines
+    slide.addText(song.lines.join("\n"), { x: 1, y: 3, color: "363636" });
   }
 
   // 3. Save the Presentation
