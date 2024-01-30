@@ -15,6 +15,12 @@ interface Song {
  * The URLs we want to scrape.
  */
 let urls = [
+  "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=162&wrkid=2824",
+  "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=563&wrkid=1152",
+  "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=462&wrkid=465",
+  "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=166&wrkid=400",
+  "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=162&wrkid=612",
+  "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=162&wrkid=622",
   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=960&wrkid=6948",
   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=960&wrkid=821",
   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=202&wrkid=2473"
