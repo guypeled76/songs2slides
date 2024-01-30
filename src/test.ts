@@ -3,6 +3,7 @@ import pptxgen from "pptxgenjs";
 
 
 interface Song {
+  url: string;
   title: string;
   artist: string;
   words: string[];
@@ -30,6 +31,10 @@ let songs = Promise.all(
 
     // Scrape the URL
     let song = scrapeIt<Song>(url, {
+      url: {
+        selector: "body@url",
+        convert: x => url
+      },
       title: "h1.artist_song_name_txt", 
       artist: "a.artist_singer_title",
       words:{
@@ -60,10 +65,10 @@ let songs = Promise.all(
   for(let song of songs){
 
     // Log the song we are adding
-    console.log(`Adding ${song.title}`);
+    console.log(`Adding ${song.url}`);
 
     // 2.1. Add a Slide
-    let slide = pres.addSlide({sectionTitle: `${song.title}` });
+    let slide = pres.addSlide();
 
     // 2.2. Add one or more objects (Tables, Shapes, Images, Text and Media) to the Slide
     slide.addText(`${song.title}`, { x: 1, y: 1, color: "363636" });
