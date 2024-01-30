@@ -15,7 +15,7 @@ interface Song {
  * The URLs we want to scrape.
  */
 let urls = [
-  "https://shironet.mako.co.il/artist?type=chords&lang=1&prfid=960&wrkid=6948",
+  "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=960&wrkid=6948",
   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=960&wrkid=821",
   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=202&wrkid=2473"
 ];
@@ -70,11 +70,42 @@ let songs = Promise.all(
     // 2.1. Add a Slide
     let slide = pres.addSlide();
 
-    // 2.2. Add one or more objects (Tables, Shapes, Images, Text and Media) to the Slide
-    slide.addText(`${song.title}`, { x: 1, y: 1, color: "363636" });
+    // 2.2. Add the song title
+    slide.addText(`${song.title}`, { 
+      x: 0.5,
+      y: 0.5, 
+      w: "90%",
+      color: "363636", 
+      fontSize: 16,
+      align: "right",
+      margin: 0.5
+    });
 
-    // 2.3. Add the song lines
-    slide.addText(song.lines.join("\n"), { x: 1, y: 3, color: "363636" });
+    // 2.3. Add the song artist
+    slide.addText(`${song.artist}`, { 
+      x: 0.5,
+      y: 1, 
+      w: "90%",
+      color: "363636", 
+      fontSize: 13,
+      align: "right",
+      margin: 0.5
+    });
+
+    // 2.4. Add the song lines
+    slide.addText(song.lines.join("\n"), {
+      x: 0.5,
+      y: 1.5,
+      w: "90%",
+      h: "80%",
+      margin: 0.5,
+      fontFace: "Arial",
+      fontSize: 12,
+      color: "000000",
+      isTextBox: true,
+      valign: "top",
+      align: "right"
+  });
   }
 
   // 3. Save the Presentation
