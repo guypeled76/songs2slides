@@ -185,6 +185,14 @@ let songs = Promise.all(
     // 2.3. Add the song artist
     slide.addText(`${song.artist}`, SubtitleStyle);
 
+    slide.addText("index", {
+      x: 0.5,
+      y: 0.5,
+      hyperlink: {
+        slide: 1,
+      }
+    })
+
     let blocks = [];
 
     // 2.4. Add the song line blockes
