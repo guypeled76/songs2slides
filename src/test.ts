@@ -61,7 +61,14 @@ let songs = Promise.all(
 
   })
 ).then(
-  songs => songs.map(song => song.data)
+
+  /*
+   * Sort the songs by title. 
+   */
+  songs => songs
+    .map(song => song.data)
+    .sort((a, b) => a.title.localeCompare(b.title))
+
 ).then(songs => {
   
   // 1. Create a new Presentation
@@ -98,19 +105,27 @@ let songs = Promise.all(
       margin: 0.5
     });
 
-    // 2.4. Add the song lines
-    slide.addText(song.lines.join("\n"), {
+    const linesPerSlide = 15;
+    let blocks = [];
+
+    // 2.4. Add the song line blockes
+    for (let i = 0; i < song.lines.length; i += linesPerSlide) {
+      console.log(`Adding lines ${i} to ${i + linesPerSlide - 1}`);
+      blocks.push(song.lines.slice(i, i + linesPerSlide - 1).join("\n"));      
+    }
+    
+    // 2.4.1. Add the song lines
+    slide.addTable([blocks.reverse()], {
       x: 0.5,
-      y: 1.5,
+      y: 1.4,
       w: "90%",
-      h: "80%",
-      margin: 0.5,
+      h: 4,
       fontFace: "Arial",
       fontSize: 12,
       color: "000000",
-      isTextBox: true,
       valign: "top",
-      align: "right"
+      align: "right",
+      margin: 0,
   });
   }
 
