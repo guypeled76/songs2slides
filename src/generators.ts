@@ -13,7 +13,9 @@ import {
 } from "./models";
 
 
-
+/*
+ * Generate a PowerPoint presentation from a list of songs
+ */
 export function generateIndex(pres: pptxgen, songs: Song[]) {
     // 1.1. Add an index slide
   let indexSlide = pres.addSlide();
@@ -50,6 +52,9 @@ export function generateIndex(pres: pptxgen, songs: Song[]) {
   indexSlide.addTable(indexRows, IndexTableStyle);
 }
 
+/*
+ * Generate a PowerPoint presentation from a list of songs
+ */
 export function generateSlides(pres: pptxgen, songs: Song[]) {
     // 2. Loop through the songs
     for(let song of songs){
