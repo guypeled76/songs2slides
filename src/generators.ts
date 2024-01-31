@@ -36,14 +36,16 @@ export function generateIndex(pres: pptxgen, songs: Song[]) {
       indexRows.push(indexRow);
     }
 
-    indexRow.push({
-      text: song.title,
-      options: {
-        hyperlink: {
-          slide: slide,
+    const cell : pptxgen.TableCell = {
+        text: song.title.replace(/(.{15})..+/, "$1…"),
+        options: {
+          hyperlink: {
+            slide: slide,
+          }
         }
-      }
-    });
+      };
+
+    indexRow.push(cell);
 
     slide++;
   }
@@ -72,19 +74,20 @@ export function generateSlides(pres: pptxgen, songs: Song[]) {
         slide.addText(`${song.artist}`, SubtitleStyle);
 
         slide.addText("index", {
-        x: 0.5,
-        y: 0.5,
-        hyperlink: {
-            slide: 1,
-        }
+            x: 0.5,
+            y: 0.5,
+            w: 2,
+            hyperlink: {
+                slide: 1,
+            }
         })
 
         let blocks = [];
 
         // 2.4. Add the song line blockes
         for (let i = 0; i < song.lines.length; i += linesPerColumn) {
-        console.log(`Adding lines ${i} to ${i + linesPerColumn - 1}`);
-        blocks.push(song.lines.slice(i, i + linesPerColumn - 1).join("\n"));      
+            console.log(`Adding lines ${i} to ${i + linesPerColumn - 1}`);
+            blocks.push(song.lines.slice(i, i + linesPerColumn - 1).join("\n"));      
         }
         
         // 2.4.1. Add the song lines
