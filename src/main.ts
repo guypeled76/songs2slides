@@ -34,6 +34,8 @@ Promise.all(urls.map(scrapeSong))
   // 1. Create a new Presentation
   let pres = new pptxgen();
 
+  pres.rtlMode = true;
+
   // Generate index
   generateIndex(pres, songs);
 

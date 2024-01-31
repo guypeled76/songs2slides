@@ -79,6 +79,7 @@ export function generateSlides(pres: pptxgen, songs: Song[]) {
             x: 0.5,
             y: 0.5,
             w: 2,
+            fontFace: "Arial",
             hyperlink: {
                 slide: 1,
             }
@@ -94,8 +95,5 @@ export function generateSlides(pres: pptxgen, songs: Song[]) {
         
         // 2.4.1. Add the song lines
         slide.addTable([blocks.reverse()], TableStyle);
-
-        // 2.4.2. Add the song notes
-        slide.addNotes(song?.notes?.join("\n") ?? '');
     }
 }
