@@ -1,6 +1,13 @@
 import scrapeIt from "scrape-it";
 import pptxgen from "pptxgenjs";
-
+import { 
+  TitleStyle, 
+  SubtitleStyle, 
+  TableStyle, 
+  IndexTableStyle,
+  linesPerColumn,
+  IndexTitle
+} from "./styles";
 
 interface Song {
   url: string;
@@ -129,6 +136,37 @@ let songs = Promise.all(
   // 1. Create a new Presentation
   let pres = new pptxgen();
 
+  // 1.1. Add an index slide
+  let indexSlide = pres.addSlide();
+
+  // 2.2. Add the song title
+  indexSlide.addText(IndexTitle, TitleStyle);
+
+  let indexRows : pptxgen.TableRow[] = [];
+
+  let indexRow : pptxgen.TableRow= [];
+  indexRows.push(indexRow);
+
+  // 1.1. Loop through the songs
+  for(let song of songs){
+    if (indexRow.length == 5){
+      indexRow = [];
+      indexRows.push(indexRow);
+    }
+
+    indexRow.push({
+      text: song.title,
+      options: {
+        hyperlink: {
+          url: song.url
+        }
+      }
+    });
+  }
+
+  // 2.4.1. Add the song lines
+  indexSlide.addTable(indexRows, IndexTableStyle);
+
   // 2. Loop through the songs
   for(let song of songs){
 
@@ -139,51 +177,21 @@ let songs = Promise.all(
     let slide = pres.addSlide();
 
     // 2.2. Add the song title
-    slide.addText(`${song.title}`, { 
-      x: 0.5,
-      y: 0.5, 
-      w: "90%",
-      fontFace: "Arial",
-      color: "363636", 
-      fontSize: 16,
-      align: "right",
-      margin: 0.5
-    });
+    slide.addText(`${song.title}`, TitleStyle);
 
     // 2.3. Add the song artist
-    slide.addText(`${song.artist}`, { 
-      x: 0.5,
-      y: 1, 
-      w: "90%",
-      fontFace: "Arial",
-      color: "363636", 
-      fontSize: 13,
-      align: "right",
-      margin: 0.5
-    });
+    slide.addText(`${song.artist}`, SubtitleStyle);
 
-    const linesPerSlide = 15;
     let blocks = [];
 
     // 2.4. Add the song line blockes
-    for (let i = 0; i < song.lines.length; i += linesPerSlide) {
-      console.log(`Adding lines ${i} to ${i + linesPerSlide - 1}`);
-      blocks.push(song.lines.slice(i, i + linesPerSlide - 1).join("\n"));      
+    for (let i = 0; i < song.lines.length; i += linesPerColumn) {
+      console.log(`Adding lines ${i} to ${i + linesPerColumn - 1}`);
+      blocks.push(song.lines.slice(i, i + linesPerColumn - 1).join("\n"));      
     }
     
     // 2.4.1. Add the song lines
-    slide.addTable([blocks.reverse()], {
-      x: 0.5,
-      y: 1.4,
-      w: "90%",
-      h: 4,
-      fontFace: "Arial",
-      fontSize: 12,
-      color: "000000",
-      valign: "top",
-      align: "right",
-      margin: 0,
-  });
+    slide.addTable([blocks.reverse()], TableStyle);
   }
 
   // 3. Save the Presentation
