@@ -48,6 +48,7 @@ export const IndexTableStyle : pptxgen.TableProps = {
   valign: "top",
   align: "right",
   margin: 0,
+  rowH: 0.3
 };
 
 export const IndexTitle = "שירים";

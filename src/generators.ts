@@ -50,6 +50,8 @@ export function generateIndex(pres: pptxgen, songs: Song[]) {
     slide++;
   }
 
+  while(indexRow.length < 5) indexRow.push({text: ""});
+
   // 2.4.1. Add the song lines
   indexSlide.addTable(indexRows, IndexTableStyle);
 }
@@ -87,10 +89,13 @@ export function generateSlides(pres: pptxgen, songs: Song[]) {
         // 2.4. Add the song line blockes
         for (let i = 0; i < song.lines.length; i += linesPerColumn) {
             console.log(`Adding lines ${i} to ${i + linesPerColumn - 1}`);
-            blocks.push(song.lines.slice(i, i + linesPerColumn - 1).join("\n"));      
+            blocks.push(song.lines.slice(i, i + linesPerColumn - 1).join("\n").trim());      
         }
         
         // 2.4.1. Add the song lines
         slide.addTable([blocks.reverse()], TableStyle);
+
+        // 2.4.2. Add the song notes
+        slide.addNotes(song?.notes?.join("\n") ?? '');
     }
 }
