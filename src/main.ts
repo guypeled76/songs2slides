@@ -146,6 +146,7 @@ let songs = Promise.all(
 
   let indexRow : pptxgen.TableRow= [];
   indexRows.push(indexRow);
+  let slide = 2;
 
   // 1.1. Loop through the songs
   for(let song of songs){
@@ -158,10 +159,12 @@ let songs = Promise.all(
       text: song.title,
       options: {
         hyperlink: {
-          url: song.url
+          slide: slide,
         }
       }
     });
+
+    slide++;
   }
 
   // 2.4.1. Add the song lines
