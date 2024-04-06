@@ -77,7 +77,7 @@ export function generateSlides(pres: pptxgen, songs: Song[]) {
 
         slide.addNotes(`${song.notes.join("\n")}`);
 
-        slide.addText("index", {
+        slide.addText("אינדקס", {
             x: 0.5,
             y: 0.5,
             w: 2,
