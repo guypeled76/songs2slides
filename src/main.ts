@@ -6,6 +6,7 @@ import {
 } from "./scrapers";
 
 import { 
+  loadUrls,
   urls 
 } from "./input";
 
@@ -19,7 +20,9 @@ import {
 /*
  * Scrape all the URLs concurrently and get songs data.
  */
-Promise.all(urls.map(scrapeSong))
+loadUrls().then(urls =>
+  Promise.all([...new Set(urls)].map(scrapeSong))
+)
 
 /*
  * Sort the songs by title. 

@@ -39,7 +39,7 @@ export const TableStyle : pptxgen.TableProps = {
 
 export const IndexTableStyle : pptxgen.TableProps = {
   x: 0.5,
-  y: 1,
+  y: 0.8,
   w: "90%",
   h: 5,
   fontFace: FontStyle,
@@ -48,9 +48,9 @@ export const IndexTableStyle : pptxgen.TableProps = {
   valign: "top",
   align: "right",
   margin: 0,
-  rowH: 0.3
+  rowH: 0.18
 };
 
 export const IndexTitle = "שירים";
 
-export const linesPerColumn = 15;
+export const linesPerColumn = 13;

@@ -75,6 +75,8 @@ export function generateSlides(pres: pptxgen, songs: Song[]) {
         // 2.3. Add the song artist
         slide.addText(`${song.artist}`, SubtitleStyle);
 
+        slide.addNotes(`${song.notes.join("\n")}`);
+
         slide.addText("index", {
             x: 0.5,
             y: 0.5,
@@ -89,8 +91,8 @@ export function generateSlides(pres: pptxgen, songs: Song[]) {
 
         // 2.4. Add the song line blockes
         for (let i = 0; i < song.lines.length; i += linesPerColumn) {
-            console.log(`Adding lines ${i} to ${i + linesPerColumn - 1}`);
-            blocks.push(song.lines.slice(i, i + linesPerColumn - 1).join("\n").trim());      
+            console.log(`Adding lines ${i} to ${i + linesPerColumn}`);
+            blocks.push(song.lines.slice(i, i + linesPerColumn).join("\n").trim());      
         }
         
         // 2.4.1. Add the song lines

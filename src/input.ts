@@ -1,3 +1,5 @@
+import csvParse from "csv-parse";
+import { fs } from "file-system-cache/lib/common";
 /*
  * The URLs we want to scrape.
  */
@@ -65,5 +67,48 @@ export const urls = [
     "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=686&wrkid=142",
     "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=489&wrkid=4614",
     "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=268&wrkid=1121",
-    "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=547&wrkid=925"
+    "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=547&wrkid=925",
+    "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=617&wrkid=2143",
+    "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=618&wrkid=3097",
+    "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=316&wrkid=171",
+    "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=341&wrkid=1027",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=342&wrkid=6081",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=975&wrkid=3168",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=34&wrkid=120",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=34&wrkid=1264",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=2100&wrkid=2062",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=820&wrkid=2982",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=843&wrkid=1872",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=342&wrkid=179",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=827&wrkid=5777",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=125&wrkid=3447",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=960&wrkid=2091",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=517&wrkid=2070",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=517&wrkid=2686",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=517&wrkid=13123",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=4734&wrkid=3481",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=712&wrkid=1957",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=6262&wrkid=1688",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=606&wrkid=3917",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=305&wrkid=1869",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=110&wrkid=2069",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=409&wrkid=796",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=34&wrkid=850",
+   "https://shironet.mako.co.il/artist?type=lyrics&lang=1&prfid=34&wrkid=2126"
 ];
+
+export async function loadUrls() {
+    let songUrls = [];
+    console.log(`Loading songs from csv file.`);
+    await csvParse.parse(fs.readFileSync("songs.csv")).forEach((line) => {
+        for (let i = 0; i < line.length; i++) {
+            let songUrl = line[i].trim();
+            if (songUrl.startsWith("https://shironet.")) {
+                console.log(`Loading ${songUrl} from csv file.`);
+                songUrls.push(songUrl);
+            }
+        }
+    });
+    console.log(`Loaded ${songUrls.length} songs from csv file.`);
+    return songUrls;
+}
